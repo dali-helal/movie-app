@@ -1,3 +1,8 @@
+
+interface genres{
+    id:number,
+    name:string
+}
 export interface Movie{
     adult: boolean;
     backdrop_path: string;
@@ -15,10 +20,17 @@ export interface Movie{
     video: boolean;
     vote_average: number;
     vote_count: number;
+    first_air_date:string,
+    runtime:number,
+    genres:genres[],
+    tagline:string
 }
 export interface TrendingResponse {
     page:number,
     total_pages:number,
     total_results:number
     results:Movie[]
+}
+export interface MoviesResponse extends TrendingResponse {
+
 }

@@ -2,8 +2,9 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "../App.tsx";
 import HomeScreen from "../pages/HomeScreen.tsx";
 import Movies from "../pages/movies/Movies.tsx";
-import Show from "../pages/shows/Show.tsx";
+import Shows from "../pages/shows/Show.tsx";
 import Search from "../pages/search/Search.tsx";
+import Details from "../pages/details";
 
 
 const routes = createBrowserRouter([
@@ -21,12 +22,16 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/shows",
-                element: <Show/>
+                element: <Shows/>
             },
             {
                 path: "/search",
                 element: <Search/>
             },
+            {
+                path:'/:type/:id',
+                element:<Details/>
+            }
         ]
 
     }

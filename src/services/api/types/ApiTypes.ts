@@ -13,7 +13,7 @@ export interface IRequestBuilderConfig {
     method: RequestMethod;                         // HTTP method for the request
     endPoint?: string;                             // EndPoint URL to be appended to the base URL
     pathParams?: Record<string, string | number>;  // Path parameters to be replaced in the URL
-    queryParams?: Record<string, string>;          // Query parameters to be appended to the URL
+    queryParams?: Record<string, string | number>;          // Query parameters to be appended to the URL
     headers?: (RawAxiosRequestHeaders & MethodsHeaders) | AxiosHeaders; // Custom headers for the request
     requestData?: unknown;                         // Request body data
     config?: AxiosRequestConfig;                   // Additional Axios request configuration

@@ -1,16 +1,17 @@
 import {Box, Flex, Image, Text} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import {imagePath} from "../../services/api/constants.ts";
-import {Movie} from "../../services/api/types/movieType.ts";
+import {Movie} from "../../services/api/types/Movie.ts";
 import {StarIcon} from "@chakra-ui/icons";
 
 interface CardProps {
-    item: Movie
+    item: Movie,
+    type:string
 }
 
-const Card = ({item}: CardProps) => {
+const Card = ({item,type}: CardProps) => {
     return (
-        <Link to={''}>
+        <Link to={`/${type}/${item?.id}`}>
             <Box
                 position={"relative"}
                 transform={"scale(1)"}

@@ -3,19 +3,19 @@ import {useEffect, useState} from "react";
 
 import Card from "../components/ui/Card.tsx";
 
-import {Movie,TrendingResponse} from "../services/api/types/movieType.ts"
+import {Movie, TrendingResponse} from "../services/api/types/Movie.ts"
 import MovieServiceAPI from "../services/api/MovieServiceAPI.ts";
 import {useTranslation} from "react-i18next";
 
 
 const HomeScreen = () => {
-    const {t}=useTranslation()
+    const {t} = useTranslation()
     const {colorMode} = useColorMode()
     const [data, setData] = useState<Movie[]>([])
     const [timeWindow, setTimeWindow] = useState("day");
     const [loading, setLoading] = useState(true);
 
-    const movieService=MovieServiceAPI.getInstance();
+    const movieService = MovieServiceAPI.getInstance();
 
     useEffect(() => {
         let timeout: number | undefined;
@@ -91,6 +91,7 @@ const HomeScreen = () => {
                     ) : (
                         <Card key={index}
                               item={item}
+                              type={item.media_type}
                         />
                     )
                 ))}

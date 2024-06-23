@@ -19,7 +19,7 @@ const Navbar = () => {
                                 letterSpacing={"widest"}
                                 fontFamily={"mono"}
                             >
-                                NETFLEX
+                                STREAMIFY
                             </Box>
                         </Link>
 
