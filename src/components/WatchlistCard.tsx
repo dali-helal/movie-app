@@ -38,7 +38,14 @@ const WatchlistCard = ({ type, item, setWatchlist }:WatchlistCardProps) => {
             });
         }
     };
-
+    const releaseYear = () => {
+        const releaseDate = item.release_date || item.first_air_date;
+        if (releaseDate) {
+            return new Date(releaseDate).getFullYear();
+        } else {
+            return "N/A";
+        }
+    };
     return (
         <Link to={`/${type}/${item.id}`}>
             <Flex gap="4">
@@ -70,9 +77,7 @@ const WatchlistCard = ({ type, item, setWatchlist }:WatchlistCardProps) => {
                         {item?.title || item?.name}
                     </Heading>
                     <Heading fontSize={"sm"} color={"green.200"} mt="2">
-                        {new Date(
-                            item?.release_date || item?.first_air_date
-                        ).getFullYear() || "N/A"}
+                        {releaseYear()}
                     </Heading>
                     <Flex alignItems={"center"} gap={2} mt="4">
                         <StarIcon fontSize={"small"} />
