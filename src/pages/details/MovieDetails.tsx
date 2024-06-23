@@ -8,7 +8,7 @@ import {
     Flex,
     HStack,
     Image, Spinner,
-    Text
+    Text, useToast
 } from "@chakra-ui/react";
 import {CalendarIcon, CheckCircleIcon, SmallAddIcon, TimeIcon} from "@chakra-ui/icons";
 import {minutesTohours, ratingToPercentage, resolveRatingColor} from "../../utils/helpers.ts";
@@ -17,6 +17,9 @@ import MovieServiceAPI from "../../services/api/MovieServiceAPI.ts";
 import {useEffect, useState} from "react";
 import {Movie} from "../../services/api/types/Movie.ts";
 import {useTranslation} from "react-i18next";
+import {useAuth} from "../../context/AuthProvider.tsx";
+import {WatchList} from "../../services/api/types/WatchList.ts";
+import {useFirestore} from "../../services/firebase/fire-store.ts";
 
 
 interface MovieDetailsProps{
@@ -26,13 +29,17 @@ interface MovieDetailsProps{
 
 const MovieDetails=({type,id}:MovieDetailsProps)=>{
     const {t}=useTranslation()
+    const {addToWatchlist,checkIfInWatchlist,removeFromWatchlist}=useFirestore()
+    const toast=useToast()
+    const {user}=useAuth()
+
     const movieService = MovieServiceAPI.getInstance();
 
     const [details, setDetails] = useState<Movie>();
     const [loading, setLoading] = useState(true);
-   // const [isInWatchlist, setIsInWatchlist] = useState(false);
+    const [isInWatchlist, setIsInWatchlist] = useState(false);
 
-    const isInWatchlist=false
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,6 +60,19 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
         fetchData();
     }, [type, id]);
 
+
+
+    useEffect(() => {
+        if (!user || !id) {
+            setIsInWatchlist(false);
+            return;
+        }
+
+        checkIfInWatchlist(user?.uid, id).then((data) => {
+            setIsInWatchlist(data);
+        });
+    }, [id, user, checkIfInWatchlist]);
+
     if (loading || !details) {
         return (
             <Flex justify={"center"}>
@@ -61,9 +81,45 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
         );
     }
 
+    const handleRemoveFromWatchlist = async () => {
+        if(user && id){
+            await removeFromWatchlist(user?.uid, id);
+            const isSetToWatchlist = await checkIfInWatchlist(user?.uid, id);
+            setIsInWatchlist(isSetToWatchlist);
+        }
+    };
+
+    const handleSaveToWatchlist = async () => {
+        if (!user) {
+            toast({
+                title: "Login to add to watchlist",
+                status: "error",
+                isClosable: true,
+                position:'top',
+                duration:5000,
+            });
+            return;
+        }
+      const data:WatchList={
+          id: details?.id,
+          title: details?.title || details?.name,
+          type: type,
+          poster_path: details?.poster_path,
+          release_date: details?.release_date || details?.first_air_date,
+          vote_average: details?.vote_average,
+          overview: details?.overview,
+      }
+        const dataId = details?.id?.toString();
+        await addToWatchlist(user?.uid, dataId, data);
+        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+        setIsInWatchlist(isSetToWatchlist);
+    };
+
+
     const title = details.title || details.name;
     const releaseDate =
         type === "tv" ? details.first_air_date : details.release_date;
+
     return(
         <>
             <Box
@@ -142,6 +198,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                                         colorScheme="green"
                                         variant={"outline"}
                                         color={"white"}
+                                        onClick={handleRemoveFromWatchlist}
                                     >
                                         {t("In watchlist")}
                                     </Button>
@@ -150,6 +207,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                                         leftIcon={<SmallAddIcon />}
                                         variant={"outline"}
                                         color={"white"}
+                                        onClick={handleSaveToWatchlist}
                                     >
                                         {t("Add to watchlist")}
                                     </Button>

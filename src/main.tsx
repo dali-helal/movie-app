@@ -13,10 +13,15 @@ import theme from './theme';
 import {RouterProvider} from "react-router-dom";
 import routes from "./routes/routes.tsx";
 
+// Auth Context
+import {AuthProvider} from "./context/AuthProvider.tsx";
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-        <RouterProvider router={routes}/>
+        <AuthProvider>
+            <RouterProvider router={routes}/>
+        </AuthProvider>
     </ChakraProvider>
 );

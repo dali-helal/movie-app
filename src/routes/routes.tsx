@@ -5,7 +5,8 @@ import Movies from "../pages/movies/Movies.tsx";
 import Shows from "../pages/shows/Show.tsx";
 import Search from "../pages/search/Search.tsx";
 import Details from "../pages/details";
-
+import ProtectedRouterProvider from "./ProtectedRouterProvider.tsx";
+import Watchlist from "../pages/Watchlist.tsx";
 
 const routes = createBrowserRouter([
     {
@@ -31,6 +32,14 @@ const routes = createBrowserRouter([
             {
                 path:'/:type/:id',
                 element:<Details/>
+            },
+            {
+                path: "/watchlist",
+                element: (
+                    <ProtectedRouterProvider>
+                        <Watchlist/>
+                    </ProtectedRouterProvider>
+                ),
             }
         ]
 

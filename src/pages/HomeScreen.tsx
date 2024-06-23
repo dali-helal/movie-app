@@ -18,27 +18,19 @@ const HomeScreen = () => {
     const movieService = MovieServiceAPI.getInstance();
 
     useEffect(() => {
-        let timeout: number | undefined;
         const fetchData = async () => {
             setLoading(true);
             try {
                 const response = await movieService.fetchTrending<TrendingResponse>(timeWindow);
-                timeout = setTimeout(() => {
-                    setData(response.results);
-                    console.log(response.results)
-                    setLoading(false);
-                }, 500);
+                setData(response.results);
+                setLoading(false);
             } catch (err) {
                 console.log(err, "err");
                 setLoading(false);
             }
         };
-
         fetchData();
 
-        return () => {
-            clearTimeout(timeout);
-        };
     }, [timeWindow]);
 
     return (
@@ -57,6 +49,10 @@ const HomeScreen = () => {
                         as="button"
                         px="3"
                         py="1"
+                        fontSize={{
+                            base:"12px",
+                            md:"1xl"
+                        }}
                         borderRadius={"20px"}
                         bg={`${timeWindow === "day" ? colorMode == 'dark' ? "gray.800" : "gray.300" : ""}`}
                         onClick={() => setTimeWindow("day")}
@@ -67,6 +63,10 @@ const HomeScreen = () => {
                         as="button"
                         px="3"
                         py="1"
+                        fontSize={{
+                            base:"12px",
+                            md:"1xl"
+                        }}
                         borderRadius={"20px"}
                         bg={`${timeWindow === "week" ? colorMode == 'dark' ? "gray.800" : "gray.300" : ""}`}
                         onClick={() => setTimeWindow("week")}

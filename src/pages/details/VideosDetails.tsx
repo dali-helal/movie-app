@@ -23,7 +23,6 @@ const VideosDetails=({type,id}:VideosDetailsProps)=>{
             try {
                 const videosData = await movieService.fetchVideos<VideosResponse>(type, id)
 
-                console.log(videosData)
                 const video:Video|undefined = videosData?.results?.find(
                     (video) => video?.type === "Trailer"
                 );
