@@ -22,23 +22,22 @@ import {WatchList} from "../../services/api/types/WatchList.ts";
 import {useFirestore} from "../../services/firebase/fire-store.ts";
 
 
-interface MovieDetailsProps{
+interface MovieDetailsProps {
     type: string | undefined
     id: string | undefined
 }
 
-const MovieDetails=({type,id}:MovieDetailsProps)=>{
-    const {t}=useTranslation()
-    const {addToWatchlist,checkIfInWatchlist,removeFromWatchlist}=useFirestore()
-    const toast=useToast()
-    const {user}=useAuth()
+const MovieDetails = ({type, id}: MovieDetailsProps) => {
+    const {t} = useTranslation()
+    const {addToWatchlist, checkIfInWatchlist, removeFromWatchlist} = useFirestore()
+    const toast = useToast()
+    const {user} = useAuth()
 
     const movieService = MovieServiceAPI.getInstance();
 
     const [details, setDetails] = useState<Movie>();
     const [loading, setLoading] = useState(true);
     const [isInWatchlist, setIsInWatchlist] = useState(false);
-
 
 
     useEffect(() => {
@@ -61,7 +60,6 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
     }, [type, id]);
 
 
-
     useEffect(() => {
         if (!user || !id) {
             setIsInWatchlist(false);
@@ -82,7 +80,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
     }
 
     const handleRemoveFromWatchlist = async () => {
-        if(user && id){
+        if (user && id) {
             await removeFromWatchlist(user?.uid, id);
             const isSetToWatchlist = await checkIfInWatchlist(user?.uid, id);
             setIsInWatchlist(isSetToWatchlist);
@@ -95,20 +93,20 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                 title: "Login to add to watchlist",
                 status: "error",
                 isClosable: true,
-                position:'top',
-                duration:5000,
+                position: 'top',
+                duration: 5000,
             });
             return;
         }
-      const data:WatchList={
-          id: details?.id,
-          title: details?.title || details?.name,
-          type: type,
-          poster_path: details?.poster_path,
-          release_date: details?.release_date || details?.first_air_date,
-          vote_average: details?.vote_average,
-          overview: details?.overview,
-      }
+        const data: WatchList = {
+            id: details?.id,
+            title: details.title || details.name || "",
+            type: type || "movie",
+            poster_path: details?.poster_path,
+            release_date: details?.release_date || details?.first_air_date,
+            vote_average: details?.vote_average,
+            overview: details?.overview,
+        }
         const dataId = details?.id?.toString();
         await addToWatchlist(user?.uid, dataId, data);
         const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
@@ -120,7 +118,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
     const releaseDate =
         type === "tv" ? details.first_air_date : details.release_date;
 
-    return(
+    return (
         <>
             <Box
                 background={`linear-gradient(rgba(0,0,0,.88), rgba(0,0,0,.88)), url(${imagePathOriginal}/${details?.backdrop_path})`}
@@ -128,7 +126,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                 backgroundSize={"cover"}
                 backgroundPosition={"center"}
                 w={"100%"}
-                h={{ base: "auto", md: "500px" }}
+                h={{base: "auto", md: "500px"}}
                 py={"2"}
                 zIndex={"-1"}
                 display={"flex"}
@@ -138,7 +136,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                     <Flex
                         alignItems={"center"}
                         gap="10"
-                        flexDirection={{ base: "column", md: "row" }}
+                        flexDirection={{base: "column", md: "row"}}
                     >
                         <Image
                             height={"450px"}
@@ -155,7 +153,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
 
                             <Flex alignItems={"center"} gap={"4"} mt={1} mb={5}>
                                 <Flex alignItems={"center"}>
-                                    <CalendarIcon mr={2} color={"gray.400"} />
+                                    <CalendarIcon mr={2} color={"gray.400"}/>
                                     <Text fontSize={"sm"}>
                                         {new Date(releaseDate).toLocaleDateString("en-US")} (US)
                                     </Text>
@@ -164,7 +162,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                                     <>
                                         <Box>*</Box>
                                         <Flex alignItems={"center"}>
-                                            <TimeIcon mr="2" color={"gray.400"} />
+                                            <TimeIcon mr="2" color={"gray.400"}/>
                                             <Text fontSize={"sm"}>
                                                 {minutesTohours(details?.runtime)}
                                             </Text>
@@ -189,12 +187,12 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                                         </Box>
                                     </CircularProgressLabel>
                                 </CircularProgress>
-                                <Text display={{ base: "none", md: "initial" }}>
+                                <Text display={{base: "none", md: "initial"}}>
                                     User Score
                                 </Text>
                                 {isInWatchlist ? (
                                     <Button
-                                        leftIcon={<CheckCircleIcon />}
+                                        leftIcon={<CheckCircleIcon/>}
                                         colorScheme="green"
                                         variant={"outline"}
                                         color={"white"}
@@ -204,7 +202,7 @@ const MovieDetails=({type,id}:MovieDetailsProps)=>{
                                     </Button>
                                 ) : (
                                     <Button
-                                        leftIcon={<SmallAddIcon />}
+                                        leftIcon={<SmallAddIcon/>}
                                         variant={"outline"}
                                         color={"white"}
                                         onClick={handleSaveToWatchlist}

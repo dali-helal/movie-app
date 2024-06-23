@@ -5,8 +5,9 @@ export const minutesTohours = (minutes:number) => {
     return `${hours}h ${mins}m`;
 };
 
-export const ratingToPercentage = (rating:number) => {
-    return (rating * 10)?.toFixed(0);
+export const ratingToPercentage = (rating: number | undefined): number => {
+    if (rating === undefined) return 0;
+    return Math.round(rating * 10) * 10;
 };
 
 export const resolveRatingColor = (rating:number) => {

@@ -17,9 +17,20 @@ const Watchlist = () => {
         const fetchWatchlist = async () => {
             if (user?.uid) {
                 try {
-                    const data= await getWatchlist(user.uid);
-                    setWatchlist(data);
-                    console.log(data, "data");
+                    const data = await getWatchlist(user.uid);
+                    const transformedData: WatchList[] = data.map((item: any) => ({
+                        id: item.id,
+                        title: item.title,
+                        name: item.name,
+                        type: item.type,
+                        poster_path: item.poster_path,
+                        release_date: item.release_date,
+                        vote_average: item.vote_average,
+                        overview: item.overview,
+                        first_air_date: item.first_air_date,
+                    }));
+                    setWatchlist(transformedData);
+                    console.log(transformedData, "transformed data");
                 } catch (err) {
                     console.error(err, "error");
                 } finally {
