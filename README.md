@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Movie App is a web application built with React and TypeScript that allows users to discover trending movies and TV shows, search for specific titles, and manage a personalized list of favorite movies and TV shows. The app supports both dark and light modes and is internationalized (i18n) to cater to a global audience. The data is fetched from the TMDB API, and Firebase is used for authentication and data storage.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Discover Trending Movies and TV Shows**: Fetches and displays trending movies and TV shows from the TMDB API.
+- **Search Functionality**: Allows users to search for specific movies or TV shows.
+- **User Authentication**: Users can create an account and log in using their Google account via Firebase Authentication.
+- **Favorite List Management**: Authenticated users can save and manage a list of their favorite movies and TV shows.
+- **Dark and Light Modes**: Users can switch between dark and light modes for a comfortable viewing experience.
+- **Internationalization (i18n)**: The app supports multiple languages, making it accessible to a wider audience.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A superset of JavaScript that adds static typing.
+- **Firebase**: A platform developed by Google for creating mobile and web applications, used here for authentication and database services.
+- **Chakra UI**: A simple, modular, and accessible component library for React.
+- **TMDB API**: An external API for fetching information about movies and TV shows.
+- **i18next**: An internationalization framework for React.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
