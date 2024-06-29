@@ -1,5 +1,20 @@
 {
-  "Trending": "Tendance",
+  "Trending": "Tendances",
   "Today": "Aujourd'hui",
-  "This Week": "Cette semaine"
+  "This Week": "Cette Semaine",
+  "Home": "Accueil",
+  "Movies" : "Films",
+  "TV Shows": "Séries TV",
+  "Logout" : "Déconnexion",
+  "Watchlist": "Liste de lecture",
+  "Cast": "Distribution",
+  "Videos": "Vidéos",
+  "Discover Movies": "Découvrir des Films",
+  "Top Rated": "Les Mieux Notés",
+  "Search": "Recherche",
+  "Search movies, tv shows": "Rechercher des films, des séries TV",
+  "No results found": "Aucun résultat trouvé",
+  "Discover TV Shows":"Découvrir des Séries TV",
+  "Popular": "Populaire",
+  "Watchlist is empty": "La liste de lecture est vide"
 }

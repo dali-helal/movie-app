@@ -24,8 +24,10 @@ import {Icon} from '@chakra-ui/react'
 import LanguageMenu from "./LanguageMenu.tsx";
 import {useAuth} from "../context/AuthProvider.tsx";
 import {HamburgerIcon, SearchIcon} from "@chakra-ui/icons";
+import {useTranslation} from "react-i18next";
 
 const Navbar = () => {
+    const {t}=useTranslation()
     const {toggleColorMode, colorMode} = useColorMode()
     const {user, signInWithGoogle, logout} = useAuth()
 
@@ -60,9 +62,9 @@ const Navbar = () => {
                             alignItems={"center"}
                             display={{ base: "none", md: "flex" }}
                         >
-                            <Link to="/">Home</Link>
-                            <Link to="/movies">Movies</Link>
-                            <Link to="/shows">TV Shows</Link>
+                            <Link to="/">{t("Home")}</Link>
+                            <Link to="/movies">{t("Movies")}</Link>
+                            <Link to="/shows">{("TV Shows")}</Link>
                             <Link to="/search">
                                 <SearchIcon fontSize={"xl"} />
                             </Link>
@@ -86,9 +88,9 @@ const Navbar = () => {
                                     </MenuButton>
                                     <MenuList>
                                         <Link to="/watchlist">
-                                            <MenuItem>Watchlist</MenuItem>
+                                            <MenuItem>{t("Watchlist")}</MenuItem>
                                         </Link>
-                                        <MenuItem onClick={logout}>Logout</MenuItem>
+                                        <MenuItem onClick={logout}>{t("Logout")}</MenuItem>
                                     </MenuList>
                                 </Menu>
                             )}
@@ -121,9 +123,10 @@ const Navbar = () => {
                                 aria-label="Open menu"
                                 onClick={onOpen}
                             />
+
                             <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
                                 <DrawerOverlay />
-                                <DrawerContent bg={"black"}>
+                                <DrawerContent >
                                     <DrawerCloseButton />
                                     <DrawerHeader>
                                         {user ? (
@@ -145,17 +148,17 @@ const Navbar = () => {
 
                                     <DrawerBody>
                                         <Flex flexDirection={"column"} gap={"4"} onClick={onClose}>
-                                            <Link to="/">Home</Link>
-                                            <Link to="/movies">Movies</Link>
-                                            <Link to="/shows">TV Shows</Link>
+                                            <Link to="/">{t("Home")}</Link>
+                                            <Link to="/movies">{t("Movies")}</Link>
+                                            <Link to="/shows">{("TV Shows")}</Link>
                                             {user && (
                                                 <>
-                                                    <Link to="/watchlist">Watchlist</Link>
+                                                    <Link to="/watchlist">{t("Watchlist")}</Link>
                                                     <Button
                                                         variant={"outline"}
                                                         onClick={logout}
                                                     >
-                                                        Logout
+                                                        {t("Logout")}
                                                     </Button>
                                                 </>
                                             )}

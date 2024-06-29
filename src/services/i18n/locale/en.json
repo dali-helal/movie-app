@@ -1,5 +1,20 @@
 {
     "Trending": "Trending",
     "Today": "Today",
-    "This Week": "This Week"
+    "This Week": "This Week",
+    "Home": "Home",
+    "Movies" : "Movies",
+    "TV Shows": "TV Shows",
+    "Logout" : "Logout",
+    "Watchlist": "Watchlist",
+    "Cast": "Cast",
+    "Videos": "Videos",
+    "Discover Movies": "Discover Movies",
+    "Top Rated": "Top Rated",
+    "Search": "Search",
+    "Search movies, tv shows": "Search movies, tv shows",
+    "No results found": "No results found",
+    "Discover TV Shows":"Discover TV Shows",
+    "Popular": "Popular",
+    "Watchlist is empty": "Watchlist is empty"
 }

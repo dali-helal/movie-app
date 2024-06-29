@@ -11,9 +11,11 @@ import {useEffect, useState} from "react";
 import {Movie, MoviesResponse} from "../../services/api/types/Movie.ts";
 import Card from "../../components/ui/Card.tsx";
 import Pagination from "../../components/Pagination.tsx";
+import {useTranslation} from "react-i18next";
 
 
 const Movies = () => {
+    const {t}=useTranslation()
     const movieService = MovieServiceAPI.getInstance();
 
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -51,7 +53,7 @@ const Movies = () => {
                     gap={"4"} my="10"
                 >
                     <Heading as="h2" fontSize={"md"} textTransform={"uppercase"}>
-                        Discover Movies
+                        {t("Discover Movies")}
                     </Heading>
 
                     <Select
@@ -63,7 +65,7 @@ const Movies = () => {
                     >
                         <option value="popularity.desc">Popular</option>
                         <option value="vote_average.desc&vote_count.gte=1000">
-                            Top Rated
+                            {t("Top Rated")}
                         </option>
                     </Select>
                     <Pagination

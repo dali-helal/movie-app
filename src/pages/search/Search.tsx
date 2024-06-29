@@ -4,9 +4,11 @@ import Pagination from "../../components/Pagination.tsx";
 import MovieServiceAPI from "../../services/api/MovieServiceAPI.ts";
 import {Movie, TrendingResponse} from "../../services/api/types/Movie.ts";
 import Card from "../../components/ui/Card.tsx";
+import {useTranslation} from "react-i18next";
 
 
 const Search=()=>{
+    const {t}=useTranslation()
     const movieService = MovieServiceAPI.getInstance();
 
     const [searchValue, setSearchValue] = useState("");
@@ -37,13 +39,13 @@ const Search=()=>{
             <Container maxW={"container.xl"}>
                 <Flex alignItems={"baseline"} gap={"4"} my={"10"}>
                     <Heading as="h2" fontSize={"md"} textTransform={"uppercase"}>
-                        Search
+                        {t("Search")}
                     </Heading>
                 </Flex>
 
                 <form onSubmit={handleSearch}>
                     <Input
-                        placeholder="Search movies, tv shows..."
+                        placeholder={t("Search movies, tv shows")}
                         _placeholder={{ color: "gray.100" }}
                         value={tempSearchValue}
                         onChange={(e) => setTempSearchValue(e.target.value)}
@@ -64,7 +66,7 @@ const Search=()=>{
 
                 {data?.length === 0 && !isLoading && (
                     <Heading textAlign={"center"} as="h3" fontSize={"sm"} mt="10">
-                        No results found
+                        {t("No results found")}
                     </Heading>
                 )}
 

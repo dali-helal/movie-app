@@ -7,7 +7,7 @@ export const minutesTohours = (minutes:number) => {
 
 export const ratingToPercentage = (rating: number | undefined): number => {
     if (rating === undefined) return 0;
-    return Math.round(rating * 10) * 10;
+    return Math.round(rating * 10)
 };
 
 export const resolveRatingColor = (rating:number) => {

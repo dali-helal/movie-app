@@ -1,4 +1,4 @@
-import {Button, Flex, Text} from "@chakra-ui/react";
+import {Button, Flex, Text,useColorMode} from "@chakra-ui/react";
 import {useTranslation} from "react-i18next";
 import {Dispatch, SetStateAction} from "react";
 import {ArrowBackIcon, ArrowForwardIcon} from "@chakra-ui/icons";
@@ -10,6 +10,7 @@ interface PaginationProps{
 }
 const Pagination = ({activePage, totalPages, setActivePage}:PaginationProps) => {
     const {t}=useTranslation()
+    const {colorMode} = useColorMode()
     return (
         <>
             <Flex gap={"2"} alignItems={"center"}>
@@ -29,9 +30,9 @@ const Pagination = ({activePage, totalPages, setActivePage}:PaginationProps) => 
                     </Button>
                 </Flex>
                 <Flex gap="1">
-                    <Text>{activePage}</Text>
+                    <Text color={colorMode=="dark"?"white":"black"}>{activePage}</Text>
                     <Text> {t("of")}</Text>
-                    <Text>{totalPages}</Text>
+                    <Text color={colorMode=="dark"?"white":"black"}>{totalPages}</Text>
                 </Flex>
             </Flex>
         </>

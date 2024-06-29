@@ -5,8 +5,10 @@ import WatchlistCard from "../components/WatchlistCard";
 import {WatchList} from "../services/api/types/WatchList.ts";
 import {useFirestore} from "../services/firebase/fire-store.ts";
 import {useAuth} from "../context/AuthProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 const Watchlist = () => {
+    const {t}=useTranslation()
     const { getWatchlist } = useFirestore();
     const { user } = useAuth();
     const [watchlist, setWatchlist] = useState<WatchList[]>([]);
@@ -46,7 +48,7 @@ const Watchlist = () => {
         <Container maxW={"container.xl"}>
             <Flex alignItems={"baseline"} gap={"4"} my={"10"}>
                 <Heading as="h2" fontSize={"md"} textTransform={"uppercase"}>
-                    Watchlist
+                    {t("Watchlist")}
                 </Heading>
             </Flex>
             {isLoading && (
@@ -57,7 +59,7 @@ const Watchlist = () => {
             {!isLoading && watchlist?.length === 0 && (
                 <Flex justify={"center"} mt="10">
                     <Heading as="h2" fontSize={"md"} textTransform={"uppercase"}>
-                        Watchlist is empty
+                        {t("Watchlist is empty")}
                     </Heading>
                 </Flex>
             )}
